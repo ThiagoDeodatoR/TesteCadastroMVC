@@ -1,0 +1,98 @@
+﻿@using TesteCadastroMVC.web.Models;
+@model ViewModels
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container-login">
+    <div class="row">
+        <h3 class="titulo">Entrar no Sistema</h3>
+    </div>
+    <div class="row">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Conta", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Login.Usuario, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Login.Usuario, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Login.Usuario, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Login.Senha, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Login.Senha, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Login.Senha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        @Html.LabelFor(m => m.Login.LembrarMe)
+                        @Html.CheckBoxFor(m => m.Login.LembrarMe)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="submit" class="btn btn-success" value="Login" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Não é registrado? Clique <a href="#modal_registrar_usuario" id="registrar_usuario" data-toggle="modal">aqui</a>
+            </p>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_registrar_usuario" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="titulo_modal">Cadastro de Usuário</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("Cadastrar", "Conta", FormMethod.Post))
+                {
+                    <div class="modal-body" id="form_usuario"> 
+                        <div class="form-group">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(modal => modal.User.Login, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(modal => modal.User.Login, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(modal => modal.User.Login, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(modal => modal.User.Senha, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(modal => modal.User.Senha, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(modal => modal.User.Senha, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+               // $(document).on('click', '#registrar_usuario', function () {
+                 //   $('#exampleModalCenter').modal('show') //não está funcionando hmm...
+               // });
+    </script>
+}
